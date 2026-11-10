@@ -1,0 +1,15 @@
+* {
+    font-family: "JetBrainsMono Nerd Font";
+    src: url("https://jsdelivr.net") format("woff2");
+
+    text-align: center;
+}
+
+body {
+    background-color: dimgray;
+}
+
+h1, h2, p{
+    color: white;
+}
+
