@@ -23,6 +23,252 @@
     </p>
 
     <img src="img/chiggle.jpg" alt="A chiggle">
+
+    <!-- START OF STUPID WEBSITE WIDGET -->
+<div id="stupid-widget-container">
+  <style>
+    #stupid-widget-container {
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', sans-serif;
+      max-width: 460px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #ffff00;
+      border: 6px ridge #ff00ff;
+      box-shadow: 12px 12px 0px #00ffff, -12px -12px 0px #ff0000;
+      text-align: center;
+      color: #000;
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+      z-index: 9999;
+    }
+
+    .blink-badge {
+      background: #ff0000;
+      color: #fff;
+      font-weight: bold;
+      padding: 4px 10px;
+      font-size: 13px;
+      letter-spacing: 1px;
+      display: inline-block;
+      animation: stupid-blink 0.6s infinite;
+      border: 2px solid #000;
+    }
+
+    @keyframes stupid-blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.2; transform: scale(0.96); }
+    }
+
+    .potato-core {
+      font-size: 64px;
+      margin: 15px 0 5px;
+      display: inline-block;
+      cursor: grab;
+      animation: potato-float 2.5s infinite ease-in-out;
+      filter: drop-shadow(0 6px 4px rgba(0,0,0,0.3));
+    }
+
+    @keyframes potato-float {
+      0%, 100% { transform: translateY(0) rotate(-8deg); }
+      50% { transform: translateY(-12px) rotate(8deg); }
+    }
+
+    .potato-spin {
+      animation: turbo-spin 0.15s infinite linear !important;
+    }
+
+    @keyframes turbo-spin {
+      100% { transform: rotate(360deg) scale(1.3); }
+    }
+
+    .metrics-box {
+      background: #000;
+      color: #00ff00;
+      font-family: monospace;
+      padding: 10px;
+      margin: 12px 0;
+      border: 3px inset #888;
+      text-align: left;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .runaway-arena {
+      height: 80px;
+      position: relative;
+      margin-top: 10px;
+      border: 2px dashed #000;
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    #runaway-btn {
+      padding: 8px 14px;
+      font-size: 14px;
+      font-weight: bold;
+      background: #ff0000;
+      color: #fff;
+      border: 3px outset #fff;
+      cursor: pointer;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: left 0.08s ease-out, top 0.08s ease-out;
+      white-space: nowrap;
+    }
+
+    .stupid-action-btn {
+      margin: 5px 3px;
+      padding: 6px 10px;
+      background: #00ffff;
+      border: 3px outset #fff;
+      font-weight: bold;
+      font-family: inherit;
+      cursor: pointer;
+      color: #000;
+    }
+
+    .stupid-action-btn:active {
+      border-style: inset;
+    }
+
+    .floating-junk {
+      position: fixed;
+      pointer-events: none;
+      z-index: 999999;
+      font-size: 42px;
+      animation: junk-fly 3.5s linear forwards;
+    }
+
+    @keyframes junk-fly {
+      0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 1; }
+      100% { transform: translateY(-20vh) rotate(1080deg) scale(2); opacity: 0; }
+    }
+  </style>
+
+  <div class="blink-badge">⚠️ LOAD-BEARING POTATO (DO NOT UNPLUG) ⚠️</div>
+
+  <div>
+    <div class="potato-core" id="server-potato" title="Click to pet the server">🥔</div>
+  </div>
+  <div style="font-size: 12px; font-weight: bold;">Click the potato to manually crank the CPU</div>
+
+  <div class="metrics-box">
+    <div>> SERVER STATUS: <span id="potato-status" style="color: #ffff00;">Held together by duct tape</span></div>
+    <div>> DOWNLOADED RAM: <span id="ram-val">0</span> GB</div>
+    <div>> CLOUDFLARE VIBES: <span id="vibe-val">Immaculate</span></div>
+    <div>> TIMES YOU FAILED TO CLICK: <span id="fail-val">0</span></div>
+  </div>
+
+  <div>
+    <button class="stupid-action-btn" id="ram-btn">📥 Download Free RAM</button>
+    <button class="stupid-action-btn" id="dino-btn">🦖 Fix 522 Error</button>
+  </div>
+
+  <div class="runaway-arena" id="arena">
+    <button id="runaway-btn">🗑️ Delete Website</button>
+  </div>
+  <marquee scrollamount="10" style="font-size: 12px; margin-top: 8px; font-weight: bold; color: #ff0000;">
+    BREAKING NEWS: Local visitor wastes valuable seconds looking at a yellow box • Best viewed on a Smart Fridge at 640x480
+  </marquee>
+
+  <script>
+    (function() {
+      const potato = document.getElementById('server-potato');
+      const status = document.getElementById('potato-status');
+      const ramVal = document.getElementById('ram-val');
+      const vibeVal = document.getElementById('vibe-val');
+      const failVal = document.getElementById('fail-val');
+      const runawayBtn = document.getElementById('runaway-btn');
+      const arena = document.getElementById('arena');
+      const ramBtn = document.getElementById('ram-btn');
+      const dinoBtn = document.getElementById('dino-btn');
+
+      let ram = 0;
+      let fails = 0;
+      let clicks = 0;
+
+      const taunts = [
+        "Too slow!", "Nice try!", "Nope!", "Skill issue", 
+        "Missed me!", "404: Aim Not Found", "Almost!", "Don't touch!"
+      ];
+
+      const vibes = [
+        "Slightly crispy", "522 Connection Timed Out (jk)", 
+        "Smells like burnt toast", "Running on hopes & dreams", 
+        "Overclocked to 1.21 Gigawatts", "100% Certified Organic"
+      ];
+
+      // 1. Runaway Button Logic
+      function dodge(e) {
+        fails++;
+        failVal.textContent = fails;
+        
+        const arenaRect = arena.getBoundingClientRect();
+        const btnRect = runawayBtn.getBoundingClientRect();
+        
+        const maxX = Math.max(10, arenaRect.width - btnRect.width - 10);
+        const maxY = Math.max(10, arenaRect.height - btnRect.height - 10);
+        
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+        
+        runawayBtn.style.transform = 'none';
+        runawayBtn.style.left = randomX + 'px';
+        runawayBtn.style.top = randomY + 'px';
+        runawayBtn.textContent = taunts[Math.floor(Math.random() * taunts.length)];
+      }
+
+      runawayBtn.addEventListener('mouseover', dodge);
+      runawayBtn.addEventListener('touchstart', (e) => { e.preventDefault(); dodge(); });
+      runawayBtn.addEventListener('click', () => {
+        alert("Impossible. You either used the Tab key or inspected element. Respect.");
+      });
+
+      // 2. Potato Overclocking
+      potato.addEventListener('click', () => {
+        clicks++;
+        potato.classList.add('potato-spin');
+        status.textContent = `OVERCLOCKING (${clicks * 420} RPM)`;
+        status.style.color = '#ff00ff';
+        setTimeout(() => {
+          potato.classList.remove('potato-spin');
+          status.textContent = 'Panting heavily';
+          status.style.color = '#ffff00';
+        }, 700);
+      });
+
+      // 3. Download RAM
+      ramBtn.addEventListener('click', () => {
+        ram += Math.floor(Math.random() * 64) + 16;
+        ramVal.textContent = ram;
+        vibeVal.textContent = vibes[Math.floor(Math.random() * vibes.length)];
+        spawnJunk(['💾', '⚡', '🔥', '📈']);
+      });
+
+      // 4. Deploy Dinosaurs & Bananas
+      dinoBtn.addEventListener('click', () => {
+        vibeVal.textContent = "TACTICAL DINO DEPLOYED";
+        spawnJunk(['🦖', '🍌', '🎾', '🥔', '💥']);
+      });
+
+      function spawnJunk(emojis) {
+        for (let i = 0; i < 12; i++) {
+          setTimeout(() => {
+            const el = document.createElement('div');
+            el.className = 'floating-junk';
+            el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            el.style.left = Math.floor(Math.random() * 90) + 'vw';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 3500);
+          }, i * 100);
+        }
+      }
+    })();
+  </script>
+</div>
+<!-- END OF STUPID WEBSITE WIDGET -->
 </body>
 
 </html>
